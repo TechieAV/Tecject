@@ -157,6 +157,20 @@ const handleViewReceipt = () => {
 
 
 const handleSubmit = async () => {
+  if (!form.collegeName || !form.currentYear || !form.projectType) {
+    alert('Please fill all required fields.');
+    return;
+  }
+
+  if (form.projectType === 'Main Project' && !form.projectId) {
+    alert('Please select a project.');
+    return;
+  }
+
+  if (form.projectType !== 'Main Project' && !form.customProjectName) {
+    alert('Please enter custom project name.');
+    return;
+  }
   try {
     let paymentBase64 = '';
 
@@ -225,6 +239,7 @@ const handleSubmit = async () => {
               fullWidth
               value={form.collegeName}
               onChange={handleChange}
+              required
             />
           </Grid>
 
@@ -235,6 +250,7 @@ const handleSubmit = async () => {
               fullWidth
               value={form.currentYear}
               onChange={handleChange}
+              required
             />
           </Grid>
 
@@ -268,6 +284,8 @@ const handleSubmit = async () => {
               fullWidth
               value={form.priceQuoted}
               onChange={handleChange}
+              InputProps={{ readOnly: true }} 
+              required
             />
           </Grid>
 
@@ -279,6 +297,7 @@ const handleSubmit = async () => {
               fullWidth
               value={form.projectType}
               onChange={handleChange}
+              required
             >
               {['Mini Project', 'Main Project', 'Freelance'].map(type => (
                 <MenuItem key={type} value={type}>{type}</MenuItem>
@@ -294,7 +313,9 @@ const handleSubmit = async () => {
                 name="projectId"
                 fullWidth
                 value={form.projectId}
+                InputProps={{ readOnly: true }} 
                 onChange={handleChange}
+                required
               >
                 {projects.map(project => (
                   <MenuItem key={project.projectGuidId} value={project.projectGuidId}>
@@ -310,7 +331,9 @@ const handleSubmit = async () => {
                 name="customProjectName"
                 fullWidth
                 value={form.customProjectName}
+                 InputProps={{ readOnly: true }} 
                 onChange={handleChange}
+                required
               />
             </Grid>
           )}

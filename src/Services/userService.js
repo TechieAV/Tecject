@@ -1,7 +1,7 @@
 // src/Services/userService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5202/api/UserDetails';
+const API_URL = `${process.env.REACT_APP_API_BASE_URL}/api/UserDetails`;
 
 // Get user by ID
 export const getUserProfile = async (id) => {

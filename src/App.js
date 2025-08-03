@@ -26,11 +26,26 @@ import EnterpriseRegisterForm from './Components/EnterpriseRegister/EnterpriseRe
 import StudentReceipts from './Components/Receipt/ReceiptStudent';
 import FloatingChatbot from './Components/Chatbot/FloatingChatbot';
 import RazorpayPayment from './Components/RazorPayment/Payment';
+import { useLocation } from 'react-router-dom';
+
 
 
 function App() {
+  const location = useLocation();
+  
+  const hideFooterRoutes = [
+  "/admin",
+  "/admin/dashboard",
+  "/addproject"
+];
+const isAdminRoute = hideFooterRoutes.some(route =>
+  location.pathname.startsWith(route)
+);
+
+
+
   return (
-    <Router>
+    <>
       <ScrollToTop/>
       <Navbar role="user" />
 
@@ -62,11 +77,11 @@ function App() {
 
         {/* Add other routes similarly */}
       </Routes>
-      <FloatingChatbot/>
-      <MainFooter/>
-      <Footer/>
+      {!isAdminRoute && <FloatingChatbot/>}
+      {!isAdminRoute &&<MainFooter/>}
+      {!isAdminRoute &&<Footer/>}
       
-    </Router>
+    </>
   );
 }
 

@@ -1,7 +1,8 @@
 // src/Services/projectService.js
 import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
-const API_URL = 'http://localhost:5202/api/UserDetails';
+const API_URL = `${process.env.REACT_APP_API_BASE_URL}/api/UserDetails`;
 
 // 🔍 Get projects by domain
 export const getProjectsByDomain = async (domain) => {
@@ -30,7 +31,7 @@ export const getProjectById = async (projectGuidId) => {
 // 📥 Book a project
 export const bookProject = async (bookingData) => {
   try {
-    const response = await axios.post(`${API_URL}/book`, bookingData);
+    const response = await axiosInstance.post(`${API_URL}/book`, bookingData);
     return response.data;
   } catch (error) {
     console.error('Error booking project:', error);

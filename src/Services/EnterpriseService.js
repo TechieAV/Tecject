@@ -1,6 +1,8 @@
 import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
-const BASE_URL = 'http://localhost:5202/api/enterprises';
+
+const BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/api/enterprises`;
 
 export const registerEnterprise = async (data) => {
   try {
@@ -13,12 +15,12 @@ export const registerEnterprise = async (data) => {
 
 
 export const getAllEnterprises = async () => {
-  const res = await axios.get(BASE_URL);
+  const res = await axiosInstance.get(BASE_URL);
   return res.data;
 };
 
 export const purchaseProject = async (formData) => {
-  return axios.post(`${BASE_URL}/purchase`, formData, {
+  return axiosInstance.post(`${BASE_URL}/purchase`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -26,7 +28,7 @@ export const purchaseProject = async (formData) => {
 };
 
 export const getAllEnterprisePurchases = async () => {
-  const res = await axios.get(`${BASE_URL}/purchases`);
+  const res = await axiosInstance.get(`${BASE_URL}/purchases`);
   return res.data;
 };
 

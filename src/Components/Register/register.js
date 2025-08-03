@@ -15,6 +15,7 @@ const RegisterForm = () => {
   });
 
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState("");
   const [activeField, setActiveField] = useState("");
   const [validationStatus, setValidationStatus] = useState({
     password: null,
@@ -81,6 +82,7 @@ const RegisterForm = () => {
     try {
       await registerUser(dataToSend);
       setStatus("✅ Account created successfully!");
+      setStatusType("success");
       setFormData({
         name: "",
         username: "",
@@ -102,8 +104,14 @@ const RegisterForm = () => {
         const errorData = err.response.data.errors;
         const messages = Object.values(errorData).flat();
         setStatus(messages.join(" | "));
-      } else {
+        setStatusType("error");
+      } else if (err.response?.data?.message)
+        {
+          setStatus(err.response.data.message);
+          setStatusType("error");
+        }else {
         setStatus("Something went wrong. Please try again.");
+
       }
     }
   };
@@ -228,7 +236,7 @@ const RegisterForm = () => {
           )}
 
           {/* Submission status */}
-          {status && <div className="snackbar status-msg">{status}</div>}
+          {status && <div className={`snackbar status-msg ${statusType}`}>{status}</div>}
         </div>
       </div>
     </div>

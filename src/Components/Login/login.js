@@ -116,7 +116,7 @@ const Login = () => {
             }}
             sx={{ my: 2 }}
           >
-            <ToggleButton value="user">User Login</ToggleButton>
+            <ToggleButton value="user">Student Login</ToggleButton>
             <ToggleButton value="enterprise">Enterprise Login</ToggleButton>
           </ToggleButtonGroup>
 
@@ -174,6 +174,7 @@ const Login = () => {
                 </Link>
               </Typography>
               <Grid item xs={12} mt={2}>
+                {isEnterprise && (<>
   <Button
     fullWidth
     variant="outlined"
@@ -181,6 +182,7 @@ const Login = () => {
   >
     Register Enterprise
   </Button>
+  </>)}
 </Grid>
 
             </div>

@@ -1,12 +1,12 @@
-// src/Services/projectService.js
+import axiosInstance from './axiosInstance';
 
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:5202/api/admin/projects'; // Update if different
+const API_BASE = `${process.env.REACT_APP_API_BASE_URL}/api/admin/projects`; // Update if different
 
 export const uploadProject = async (formData) => {
   try {
-    const response = await axios.post(API_BASE, formData, {
+    const response = await axiosInstance.post(API_BASE, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -21,7 +21,7 @@ export const uploadProject = async (formData) => {
 // ✅ Get all projects
 export const getAllProjects = async () => {
   try {
-    const response = await axios.get(API_BASE);
+    const response = await axiosInstance.get(API_BASE);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch projects:', error);
@@ -32,7 +32,7 @@ export const getAllProjects = async () => {
 // ✅ Update a project by ID
 export const updateProject = async (id, updatedData) => {
   try {
-    const response = await axios.put(`${API_BASE}/${id}`, updatedData);
+    const response = await axiosInstance.put(`${API_BASE}/${id}`, updatedData);
     return response.data;
   } catch (error) {
     console.error('Failed to update project:', error);
@@ -43,7 +43,7 @@ export const updateProject = async (id, updatedData) => {
 // ✅ Delete a project by ID
 export const deleteProject = async (id) => {
   try {
-    const response = await axios.delete(`${API_BASE}/${id}`);
+    const response = await axiosInstance.delete(`${API_BASE}/${id}`);
     return response.data;
   } catch (error) {
     console.error('Failed to delete project:', error);
@@ -54,7 +54,7 @@ export const deleteProject = async (id) => {
 // ✅ Get project by ID
 export const getProjectById = async (id) => {
   try {
-    const response = await axios.get(`${API_BASE}/${id}`);
+    const response = await axiosInstance.get(`${API_BASE}/${id}`);
     return response.data;
   } catch (error) {
     console.error(`Failed to fetch project with ID ${id}:`, error);

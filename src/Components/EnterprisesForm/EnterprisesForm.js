@@ -29,16 +29,14 @@ export default function EnterprisesForm({ enterpriseId : propEnterpriseId }) {
   };
 
  const handleSubmit = async () => {
-  if (
-    !form.enterpriseName ||
-    !form.projectName ||
-    !form.licenseType ||
-    !form.requirementDetails ||
-    !form.priceQuoted ||
-    !form.ndaFile ||
-    !form.paymentScreenshot 
-  ) {
-    alert("Please fill all required fields and upload all files.");
+  const missingFields = [];
+  if (!form.enterpriseName) missingFields.push("Enterprise Name");
+  if (!form.projectName) missingFields.push("Project Name");
+  if (!form.requirementDetails) missingFields.push("Requirement Details");
+  if (!form.priceQuoted) missingFields.push("Price Quoted");
+
+  if (missingFields.length > 0) {
+    alert(`Please fill the following required field(s):\n- ${missingFields.join("\n- ")}`);
     return;
   }
 
@@ -85,6 +83,7 @@ formData.append('PurchaseOrder', form.paymentScreenshot); // ✅ exact match to 
             <TextField
               label="Enterprise Name"
               fullWidth
+              required
               name="enterpriseName"
               value={form.enterpriseName}
               onChange={handleChange}
@@ -95,6 +94,7 @@ formData.append('PurchaseOrder', form.paymentScreenshot); // ✅ exact match to 
             <TextField
               label="Project Name"
               fullWidth
+              required
               name="projectName"
               value={form.projectName}
               onChange={handleChange}
@@ -117,6 +117,7 @@ formData.append('PurchaseOrder', form.paymentScreenshot); // ✅ exact match to 
             <TextField
               label="Price Quoted"
               fullWidth
+              required
               name="priceQuoted"
               type="number"
               value={form.priceQuoted}
@@ -128,6 +129,7 @@ formData.append('PurchaseOrder', form.paymentScreenshot); // ✅ exact match to 
             <TextField
               label="Requirement Details"
               fullWidth
+              required
               multiline
               rows={3}
               name="requirementDetails"
